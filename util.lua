@@ -48,7 +48,9 @@ local function tb2string(tb, visited)
 	return s
 end
 
-local function ToString(v)
+local _M = {}
+
+function _M.ToString(v)
 	if type(v) == "table" then
 		return tb2string(v)
 	else
@@ -56,8 +58,10 @@ local function ToString(v)
 	end
 end
 
-local function ParseCmd(line)
+function _M.ParseCmd(line)
 	local cmdStr = string.gsub(line, "(%w+)%s(.+)", "return {cmd=\"%1\", param=%2}")
 	local cmd = load(cmdStr)()
 	return cmd
 end
+
+return _M
